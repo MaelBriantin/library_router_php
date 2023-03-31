@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="788" height="378" viewBox="0 0 788 378" xmlns="http://www.w3.org/2000/svg">
+<rect id="frame" x="0" y="0" width="788" height="378" fill="#f5f5f5" stroke="none" stroke-width="0"/>
+
+<!-- Association book_edition -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="517" y1="149" x2="517" y2="35" stroke="#bf812d" stroke-width="1"/>
+	<text x="522" y="79" fill="#01665e" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="644" y1="35" x2="517" y2="35" stroke="#bf812d" stroke-width="1"/>
+	<text x="586" y="52" fill="#01665e" font-family="Verdana" font-size="12">1,N</text>
+	<g>
+		<path d="M552 9 a14 14 90 0 1 14 14 V35 h-98 V23 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M566 35 v12 a14 14 90 0 1 -14 14 H482 a14 14 90 0 1 -14 -14 V35 H98" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="468" y="9" width="98" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="468" y1="35" x2="566" y2="35" stroke="#bf812d" stroke-width="1"/>
+		<text x="475" y="27.6" fill="#000" font-family="Georgia" font-size="14">book_edition</text>
+	</g>
+</g>
+
+<!-- Association possessed -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="246" y1="149" x2="125" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="168" y="166" fill="#01665e" font-family="Verdana" font-size="12">1,N</text>
+	<line x1="32" y1="149" x2="125" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="60" y="141" fill="#01665e" font-family="Verdana" font-size="12">1,1</text>
+	<g>
+		<path d="M149 123 a14 14 90 0 1 14 14 V149 h-76 V137 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M163 149 v12 a14 14 90 0 1 -14 14 H101 a14 14 90 0 1 -14 -14 V149 H76" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="87" y="123" width="76" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="87" y1="149" x2="163" y2="149" stroke="#bf812d" stroke-width="1"/>
+		<text x="94" y="141.6" fill="#000" font-family="Georgia" font-size="14">possessed</text>
+	</g>
+</g>
+
+<!-- Association library_book -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="517" y1="149" x2="377" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="461" y="141" fill="#01665e" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="246" y1="149" x2="377" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="302" y="166" fill="#01665e" font-family="Verdana" font-size="12">0,N</text>
+	<g>
+		<path d="M411 123 a14 14 90 0 1 14 14 V149 h-96 V137 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M425 149 v12 a14 14 90 0 1 -14 14 H343 a14 14 90 0 1 -14 -14 V149 H96" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="329" y="123" width="96" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="329" y1="149" x2="425" y2="149" stroke="#bf812d" stroke-width="1"/>
+		<text x="336" y="141.6" fill="#000" font-family="Georgia" font-size="14">library_book</text>
+	</g>
+</g>
+
+<!-- Association book_genre -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="517" y1="149" x2="644" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="551" y="166" fill="#01665e" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="750" y1="149" x2="644" y2="149" stroke="#bf812d" stroke-width="1"/>
+	<text x="694" y="166" fill="#01665e" font-family="Verdana" font-size="12">1,N</text>
+	<g>
+		<path d="M675 123 a14 14 90 0 1 14 14 V149 h-90 V137 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M689 149 v12 a14 14 90 0 1 -14 14 H613 a14 14 90 0 1 -14 -14 V149 H90" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="599" y="123" width="90" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="599" y1="149" x2="689" y2="149" stroke="#bf812d" stroke-width="1"/>
+		<text x="607" y="141.6" fill="#000" font-family="Georgia" font-size="14">book_genre</text>
+	</g>
+</g>
+
+<!-- Association wished -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="246" y1="316" x2="125" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="176" y="333" fill="#01665e" font-family="Verdana" font-size="12">1,N</text>
+	<line x1="32" y1="149" x2="125" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="60" y="186.63" fill="#01665e" font-family="Verdana" font-size="12">1,1</text>
+	<g>
+		<path d="M140 290 a14 14 90 0 1 14 14 V316 h-58 V304 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M154 316 v12 a14 14 90 0 1 -14 14 H110 a14 14 90 0 1 -14 -14 V316 H58" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="96" y="290" width="58" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="96" y1="316" x2="154" y2="316" stroke="#bf812d" stroke-width="1"/>
+		<text x="103" y="308.6" fill="#000" font-family="Georgia" font-size="14">wished</text>
+	</g>
+</g>
+
+<!-- Association wishlist_book -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="517" y1="149" x2="377" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="461" y="181.79" fill="#01665e" font-family="Verdana" font-size="12">0,N</text>
+	<line x1="246" y1="316" x2="377" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="294" y="333" fill="#01665e" font-family="Verdana" font-size="12">0,N</text>
+	<g>
+		<path d="M414 290 a14 14 90 0 1 14 14 V316 h-102 V304 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M428 316 v12 a14 14 90 0 1 -14 14 H340 a14 14 90 0 1 -14 -14 V316 H102" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="326" y="290" width="102" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="326" y1="316" x2="428" y2="316" stroke="#bf812d" stroke-width="1"/>
+		<text x="333" y="308.6" fill="#000" font-family="Georgia" font-size="14">wishlist_book</text>
+	</g>
+</g>
+
+<!-- Association book_publisher -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<line x1="517" y1="149" x2="517" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="522" y="228" fill="#01665e" font-family="Verdana" font-size="12">1,1</text>
+	<line x1="644" y1="316" x2="517" y2="316" stroke="#bf812d" stroke-width="1"/>
+	<text x="579" y="333" fill="#01665e" font-family="Verdana" font-size="12">1,N</text>
+	<g>
+		<path d="M560 290 a14 14 90 0 1 14 14 V316 h-114 V304 a14 14 90 0 1 14 -14" fill="#dfc27d" stroke="#dfc27d" stroke-width="0"/>
+		<path d="M574 316 v12 a14 14 90 0 1 -14 14 H474 a14 14 90 0 1 -14 -14 V316 H114" fill="#f6e8c3" stroke="#f6e8c3" stroke-width="0"/>
+		<rect x="460" y="290" width="114" height="52" fill="none" rx="14" stroke="#bf812d" stroke-width="1.5"/>
+		<line x1="460" y1="316" x2="574" y2="316" stroke="#bf812d" stroke-width="1"/>
+		<text x="468" y="308.6" fill="#000" font-family="Georgia" font-size="14">book_publisher</text>
+	</g>
+</g>
+
+<!-- Entity editions -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="613" y="9" width="62" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="613" y="35" width="62" height="26" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="613" y="9" width="62" height="52" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="613" y1="35" x2="675" y2="35" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="619" y="27.6" fill="#000" font-family="Georgia" font-size="14">editions</text>
+	<text x="618" y="53.6" fill="#000" font-family="Georgia" font-size="14">format</text>
+	<line x1="618" y1="56" x2="661" y2="56" stroke="#000" stroke-width="1"/>
+</g>
+
+<!-- Entity users -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="9" y="105" width="46" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="9" y="131" width="46" height="62" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="9" y="105" width="46" height="88" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="9" y1="131" x2="55" y2="131" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="15" y="123.6" fill="#000" font-family="Georgia" font-size="14">users</text>
+	<text x="14" y="149.6" fill="#000" font-family="Georgia" font-size="14">id</text>
+	<line x1="14" y1="152" x2="27" y2="152" stroke="#000" stroke-width="1"/>
+	<text x="14" y="167.6" fill="#000" font-family="Georgia" font-size="14">name</text>
+	<text x="14" y="185.6" fill="#000" font-family="Georgia" font-size="14">mail</text>
+</g>
+
+<!-- Entity libraries -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="195" y="60" width="102" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="195" y="86" width="102" height="152" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="195" y="60" width="102" height="178" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="195" y1="86" x2="297" y2="86" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="220" y="78.6" fill="#000" font-family="Georgia" font-size="14">libraries</text>
+	<text x="200" y="104.6" fill="#000" font-family="Georgia" font-size="14">book</text>
+	<line x1="200" y1="107" x2="231" y2="107" stroke="#000" stroke-width="1"/>
+	<text x="200" y="122.6" fill="#000" font-family="Georgia" font-size="14">notes</text>
+	<text x="200" y="140.6" fill="#000" font-family="Georgia" font-size="14">comments</text>
+	<text x="200" y="158.6" fill="#000" font-family="Georgia" font-size="14">reading_state</text>
+	<text x="200" y="176.6" fill="#000" font-family="Georgia" font-size="14">edition</text>
+	<text x="200" y="194.6" fill="#000" font-family="Georgia" font-size="14">editor</text>
+	<text x="200" y="212.6" fill="#000" font-family="Georgia" font-size="14">added_date</text>
+	<text x="200" y="230.6" fill="#000" font-family="Georgia" font-size="14">removed_date</text>
+</g>
+
+<!-- Entity books -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="488" y="87" width="58" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="488" y="113" width="58" height="98" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="488" y="87" width="58" height="124" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="488" y1="113" x2="546" y2="113" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="499" y="105.6" fill="#000" font-family="Georgia" font-size="14">books</text>
+	<text x="493" y="131.6" fill="#000" font-family="Georgia" font-size="14">title</text>
+	<line x1="493" y1="134" x2="518" y2="134" stroke="#000" stroke-width="1"/>
+	<text x="493" y="149.6" fill="#000" font-family="Georgia" font-size="14">author</text>
+	<text x="493" y="167.6" fill="#000" font-family="Georgia" font-size="14">tag</text>
+	<text x="493" y="185.6" fill="#000" font-family="Georgia" font-size="14">excerpt</text>
+</g>
+
+<!-- Entity genres -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="721" y="114" width="58" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="721" y="140" width="58" height="44" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="721" y="114" width="58" height="70" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="721" y1="140" x2="779" y2="140" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="729" y="132.6" fill="#000" font-family="Georgia" font-size="14">genres</text>
+	<text x="726" y="158.6" fill="#000" font-family="Georgia" font-size="14">name</text>
+	<line x1="726" y1="161" x2="761" y2="161" stroke="#000" stroke-width="1"/>
+	<text x="726" y="176.6" fill="#000" font-family="Georgia" font-size="14">excerpt</text>
+</g>
+
+<!-- Entity wishlists -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="203" y="263" width="86" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="203" y="289" width="86" height="80" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="203" y="263" width="86" height="106" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="203" y1="289" x2="289" y2="289" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="219" y="281.6" fill="#000" font-family="Georgia" font-size="14">wishlists</text>
+	<text x="208" y="307.6" fill="#000" font-family="Georgia" font-size="14">book</text>
+	<line x1="208" y1="310" x2="239" y2="310" stroke="#000" stroke-width="1"/>
+	<text x="208" y="325.6" fill="#000" font-family="Georgia" font-size="14">created_at</text>
+	<text x="208" y="343.6" fill="#000" font-family="Georgia" font-size="14">removed_at</text>
+	<text x="208" y="361.6" fill="#000" font-family="Georgia" font-size="14">aquired_at</text>
+</g>
+
+<!-- Entity publishers -->
+<g class="page_0_PB0IkgkN diagram_page" visibility="visible">
+	<g>
+		<rect x="606" y="290" width="76" height="26" fill="#80cdc1" stroke="#80cdc1" stroke-width="0" opacity="1"/>
+		<rect x="606" y="316" width="76" height="26" fill="#c7eae5" stroke="#c7eae5" stroke-width="0" opacity="1"/>
+		<rect x="606" y="290" width="76" height="52" fill="none" stroke="#35978f" stroke-width="1.5" opacity="1"/>
+		<line x1="606" y1="316" x2="682" y2="316" stroke="#35978f" stroke-width="1"/>
+	</g>
+	<text x="611" y="308.6" fill="#000" font-family="Georgia" font-size="14">publishers</text>
+	<text x="611" y="334.6" fill="#000" font-family="Georgia" font-size="14">name</text>
+	<line x1="611" y1="337" x2="646" y2="337" stroke="#000" stroke-width="1"/>
+</g>
+</svg>

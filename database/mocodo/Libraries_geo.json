@@ -1,0 +1,53 @@
+{
+  "width": 788,
+  "height": 378,
+  "cx": [
+    [ "book_edition", 517 ],
+    [ "editions", 644 ],
+    [ "users", 32 ],
+    [ "possessed", 125 ],
+    [ "libraries", 246 ],
+    [ "library_book", 377 ],
+    [ "books", 517 ],
+    [ "book_genre", 644 ],
+    [ "genres", 750 ],
+    [ "wished", 125 ],
+    [ "wishlists", 246 ],
+    [ "wishlist_book", 377 ],
+    [ "book_publisher", 517 ],
+    [ "publishers", 644 ]
+  ],
+  "cy": [
+    [ "book_edition", 35 ],
+    [ "editions", 35 ],
+    [ "users", 149 ],
+    [ "possessed", 149 ],
+    [ "libraries", 149 ],
+    [ "library_book", 149 ],
+    [ "books", 149 ],
+    [ "book_genre", 149 ],
+    [ "genres", 149 ],
+    [ "wished", 316 ],
+    [ "wishlists", 316 ],
+    [ "wishlist_book", 316 ],
+    [ "book_publisher", 316 ],
+    [ "publishers", 316 ]
+  ],
+  "shift": [
+    [ "book_edition,books,0", 0 ],
+    [ "book_edition,editions,0", 0 ],
+    [ "possessed,libraries,0", 0 ],
+    [ "possessed,users,0", 0 ],
+    [ "library_book,books,0", 0 ],
+    [ "library_book,libraries,0", 0 ],
+    [ "book_genre,books,0", 0 ],
+    [ "book_genre,genres,0", 0 ],
+    [ "wished,wishlists,0", 0 ],
+    [ "wished,users,0", 0 ],
+    [ "wishlist_book,books,0", 0 ],
+    [ "wishlist_book,wishlists,0", 0 ],
+    [ "book_publisher,books,0", 0 ],
+    [ "book_publisher,publishers,0", 0 ]
+  ],
+  "ratio": []
+}
