@@ -59,7 +59,9 @@ class Router
             $expected_uri = $this->explode_uri($route['uri']);
             $received_uri = $this->explode_uri($this->uri);
 
-            if (($expected_uri['path'] === $received_uri['path']) && str_contains($expected_uri['id'], '{') && is_numeric($received_uri['id'])) {
+            if (($expected_uri['path'] === $received_uri['path'])
+                && str_contains($expected_uri['id'], '{')
+                && is_numeric($received_uri['id'])) {
 
                 $expected_uri['id'] &= $received_uri['id'];
                 $checking_array = array_filter([$expected_uri['path'], $received_uri['id'], $expected_uri['filter']], function ($value) {
@@ -82,9 +84,9 @@ class Router
 
     public function explode_uri($uri) {
         $params = explode('/', substr($uri, 1));
-        $path = $params[0] ?? '';
-        $id = $params[1] ?? '';
-        $filter = $params[2] ?? '';
+        $path = $params[0] ?? null;
+        $id = $params[1] ?? null;
+        $filter = $params[2] ?? null;
         return (compact('path', 'id', 'filter'));
     }
 

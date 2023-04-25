@@ -9,6 +9,11 @@ $router->get('/users/{id}', [\Controllers\User::class, 'show']);
 $router->delete('/users/{id}', [\Controllers\User::class, 'destroy']);
 $router->get('/users/{id}/library', [\Controllers\User::class, 'library']);
 
+$router->get('/authors', [\Controllers\Author::class, 'index']);
+$router->get('/authors/{id}', [\Controllers\Author::class, 'show']);
+$router->get('/authors/{id}/books', [\Controllers\Author::class, 'books']);
+$router->post('/authors/{id}', [\Controllers\Author::class, 'create']);
+
 $router->get('/books', [\Controllers\Book::class, 'index']);
 $router->post('/books', [\Controllers\Book::class, 'create']);
 $router->get('/books/{id}', [\Controllers\Book::class, 'show']);

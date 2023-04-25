@@ -1,4 +1,10 @@
 <?php
+const CLASS_FOLDER = [
+    'Core' => 'config',
+    'Traits' => 'src',
+    'Controllers' => 'src',
+    'Models' => 'src'
+];
 
 function folderSrc ($class)
 {
