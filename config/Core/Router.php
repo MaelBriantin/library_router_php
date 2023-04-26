@@ -15,9 +15,10 @@ class Router
     protected $method;
     protected $uri;
     protected $query;
+
     public function __construct()
     {
-        $this->method = request_method();
+        $this->method = requestMethod();
         $this->uri = uri('path');
         $this->query = uri('query');
     }
@@ -56,33 +57,39 @@ class Router
     {
         foreach ($this->routes as $route) {
 
-            $expected_uri = $this->explode_uri($route['uri']);
-            $received_uri = $this->explode_uri($this->uri);
+            $expected_uri = $this->explodeUri($route['uri']);
+            $received_uri = $this->explodeUri($this->uri);
 
-            if (($expected_uri['path'] === $received_uri['path'])
-                && str_contains($expected_uri['id'], '{')
-                && is_numeric($received_uri['id'])) {
-
-                $expected_uri['id'] &= $received_uri['id'];
-                $checking_array = array_filter([$expected_uri['path'], $received_uri['id'], $expected_uri['filter']], function ($value) {
-                    return $value !== null && $value !== '';
-                });
-                $route['uri'] = '/'.implode('/', $checking_array);
-
+            if ($this->isDynamicParam($expected_uri, $received_uri)) {
+                $route['uri'] = $this->interpretDynamicParam($expected_uri, $received_uri);
             }
 
-            if ($this->matching_uri($route, $this->method, $this->query, $this->uri)) {
-
+            if ($this->matchingUri($route, $this->method, $this->query, $this->uri)) {
                 $controller = new $route['controller'][0]();
                 $function = $route['controller'][1];
                 return $controller->{$function}($received_uri['id']);
-
             }
         }
-        abort(404);
+        //abort();
+    }
+    function interpretDynamicParam($expected_uri, $received_uri): string
+    {
+        $expected_uri['id'] &= $received_uri['id'];
+        $checking_array = array_filter([$expected_uri['path'], $received_uri['id'], $expected_uri['filter']], function ($value) {
+            return $value !== null && $value !== '';
+        });
+        return '/'.implode('/', $checking_array);
     }
 
-    public function explode_uri($uri) {
+    function isDynamicParam($expected_uri, $received_uri): bool
+    {
+        return $expected_uri['path'] === $received_uri['path']
+            && str_contains($expected_uri['id'], '{')
+            && is_numeric($received_uri['id']);
+
+    }
+    function explodeUri($uri): array
+    {
         $params = explode('/', substr($uri, 1));
         $path = $params[0] ?? null;
         $id = $params[1] ?? null;
@@ -90,13 +97,10 @@ class Router
         return (compact('path', 'id', 'filter'));
     }
 
-    public function matching_uri($route, $method, $query, $uri) {
-        $match = false;
-        if ($route['method'] === strtoupper($method)
-            && $route['uri'] === $uri && empty($query)) {
-            $match = true;
-        };
-        return $match;
+    function matchingUri($route, $method, $query, $uri): bool
+    {
+        return $route['method'] === strtoupper($method)
+            && $route['uri'] === $uri && empty($query);
     }
 }
 

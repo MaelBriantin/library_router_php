@@ -60,7 +60,7 @@ class Book extends \Models\Book
 //        } else {
 //            echo return_json($books);
 //        }
-        echo jsonResponse($this->findAll());
+        echo jsonResponse($this->all());
     }
 
     public function show($id)

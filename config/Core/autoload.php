@@ -21,6 +21,6 @@ function folderSrc ($class)
 spl_autoload_register(function ($class) {
     $src = folderSrc($class);
     $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-    require base_path("{$src}{$class}.php");
+    require basePath("{$src}{$class}.php");
 });
 

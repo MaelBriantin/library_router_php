@@ -47,7 +47,7 @@ class Library extends \Models\Library
 //        ");
 //        $sql->execute();
 //        echo $this->returnJsonFormat($sql->fetchAll());
-        echo jsonResponse($this->findAll());
+        echo jsonResponse($this->all());
     }
 
     public function show($id, $return = false)

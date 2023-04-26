@@ -5,7 +5,7 @@ class User extends \Models\User
 {
     public function index()
     {
-        echo jsonResponse($this->findAll());
+        echo jsonResponse($this->all());
     }
 
     public function show($id)
@@ -29,11 +29,11 @@ class User extends \Models\User
         //
     }
 
-    public function library($id)
+    public function libraries($id): void
     {
         $result = $this->find($id);
         $library = new Library();
-        $result['library'] = $library->find($id);
+        $result[singularize('libraries')] = $library->findAll($id);
         echo jsonResponse($result);
     }
 }

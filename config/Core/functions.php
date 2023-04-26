@@ -3,7 +3,7 @@
 use http\Env\Response;
 use JetBrains\PhpStorm\NoReturn;
 
-function base_path($path)
+function basePath($path): string
 {
     return BASE_PATH . $path;
 }
@@ -19,7 +19,7 @@ function dd($value)
 
 function env($const)
 {
-    $env = parse_ini_file(base_path('.env'));
+    $env = parse_ini_file(basePath('.env'));
     return $env[$const];
 };
 
@@ -28,7 +28,7 @@ function uri($index)
     return parse_url($_SERVER['REQUEST_URI'])[$index] ?? '';
 }
 
-function request_method()
+function requestMethod()
 {
     return $_SERVER['REQUEST_METHOD'];
 }
@@ -45,7 +45,7 @@ function abort($code = 404, $value = [])
 function view($path, $attributes)
 {
     extract($attributes);
-    require base_path('views/' . $path);
+    require basePath('views/' . $path);
 }
 
 function jsonResponse($value)
@@ -55,10 +55,18 @@ function jsonResponse($value)
 }
 
 function singularize($string) {
-    if(str_ends_with($string, 's')) {
-        $singular = preg_replace('/s$/', '', $string); // enlève le "s" final
+    $exceptions = ['libraries' => 'library',
+                    'properties' => 'property'];
 
-        if (preg_match('/news$/i', $singular)) { // gère le cas particulier de "news"
+    if (array_key_exists($string, $exceptions)) {
+        return $exceptions[$string];
+    } else if(str_ends_with($string, 's')) {
+        $singular = preg_replace('/s$/', '', $string); // enlève le "s" final
+        if ($singular == 'libraries') { // gère le cas particulier de "libraries"
+            $singular = 'library';
+        } elseif ($singular == 'properties') { // gère le cas particulier de "properties"
+            $singular = 'property';
+        } elseif (preg_match('/news$/i', $singular)) { // gère le cas particulier de "news"
             $singular = preg_replace('/s$/i', '', $singular);
         } elseif (preg_match('/people$/i', $singular)) { // gère le cas particulier de "people"
             $singular = 'person';

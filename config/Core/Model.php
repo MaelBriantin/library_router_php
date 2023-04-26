@@ -8,10 +8,8 @@ abstract class Model extends QueryBuilder
     protected string $primaryKey = 'id';
     protected array $fillable = [];
     protected array $foreignKeys = [];
+    protected array $relations= [];
     private ?\PDO $connection;
-    protected array $where = [];
-    protected array $select = ['*'];
-    protected array $joins = [];
     public function __construct(array $attributes = []) {
         $this->connection = Connection::get();
         $this->fill($attributes);
@@ -24,26 +22,7 @@ abstract class Model extends QueryBuilder
         }
     }
 
-    public function getTable(): string
-    {
-        return $this->table;
-    }
-
-    public function getPrimaryKey(): string
-    {
-        return $this->primaryKey;
-    }
-
-    public function getFillable(): array
-    {
-        return $this->fillable;
-    }
-
-    public function getForeignKeys(): array
-    {
-        return $this->foreignKeys;
-    }
-    function findAll(): bool|array
+    function all(): bool|array
     {
         $query =
             $this->select($this->fillable)
@@ -54,7 +33,7 @@ abstract class Model extends QueryBuilder
 
         $sql = $this->connection->prepare($query);
         $sql->execute();
-        return $sql->fetchAll();
+        return $this->returnFormat($sql->fetchAll());
     }
 
     function find($id)
@@ -69,7 +48,22 @@ abstract class Model extends QueryBuilder
 
         $sql = $this->connection->prepare($query);
         $sql->execute();
-        return $sql->fetch();
+        return $this->returnFormat($sql->fetch());
+    }
+
+    function findAll($id)
+    {
+        $query =
+            $this->select($this->fillable)
+            .$this->join($this->foreignKeys)
+            .$this->from($this->table)
+            .$this->on($this->foreignKeys)
+            .$this->where($this->primaryKey, $id)
+            .$this->grouBy($this->table, $this->primaryKey);
+
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $this->returnFormat($sql->fetchAll());
     }
 
     function delete($id)

@@ -26,9 +26,9 @@ class QueryBuilder
                 $foreignTable = $foreignInstance->table;
                 $foreignFillable = $foreignInstance->fillable;
                 $foreignPrimaryKey = $foreignInstance->primaryKey;
-                $result[] = "$foreignTable.$foreignPrimaryKey AS "._toCamelCase(singularize($foreignTable).'_'.$foreignPrimaryKey);
+                $result[] = "$foreignTable.$foreignPrimaryKey AS ".singularize(_toCamelCase($foreignTable)).ucfirst($foreignPrimaryKey);
                 foreach ($foreignFillable as $fill){
-                    $result[] = "$foreignTable.$fill AS ".singularize($foreignTable).ucfirst(_toCamelCase($fill));
+                    $result[] = "$foreignTable.$fill AS ".singularize(_toCamelCase($foreignTable)).ucfirst(_toCamelCase($fill));
                 }
                 unset($foreignInstance);
             }
@@ -69,5 +69,10 @@ class QueryBuilder
     function where($column, $value)
     {
         return " WHERE $this->table.$column = $value";
+    }
+
+    function returnFormat($value)
+    {
+        return !$value ? [] : $value;
     }
 }

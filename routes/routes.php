@@ -7,7 +7,7 @@ $router->get('/users', [\Controllers\User::class, 'index']);
 $router->post('/users', [\Controllers\User::class, 'create']);
 $router->get('/users/{id}', [\Controllers\User::class, 'show']);
 $router->delete('/users/{id}', [\Controllers\User::class, 'destroy']);
-$router->get('/users/{id}/library', [\Controllers\User::class, 'library']);
+$router->get('/users/{id}/libraries', [\Controllers\User::class, 'libraries']);
 
 $router->get('/authors', [\Controllers\Author::class, 'index']);
 $router->get('/authors/{id}', [\Controllers\Author::class, 'show']);
