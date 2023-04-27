@@ -31,9 +31,9 @@ class User extends \Models\User
 
     public function libraries($id): void
     {
-        $result = $this->find($id);
+        $user = $this->find($id);
         $library = new Library();
-        $result[singularize('libraries')] = $library->findAll($id);
-        echo jsonResponse($result);
+        $user['library'] = $library->findAll($id, 'user_id');
+        echo jsonResponse($user);
     }
 }

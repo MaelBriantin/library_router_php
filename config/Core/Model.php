@@ -22,47 +22,32 @@ abstract class Model extends QueryBuilder
         }
     }
 
+    /**
+     * @return bool|array
+     */
     function all(): bool|array
     {
-        $query =
-            $this->select($this->fillable)
-            .$this->join($this->foreignKeys)
-            .$this->from($this->table)
-            .$this->on($this->foreignKeys)
-            .$this->grouBy($this->table, $this->primaryKey);
-
-        $sql = $this->connection->prepare($query);
-        $sql->execute();
+        $sql = $this->get();
         return $this->returnFormat($sql->fetchAll());
     }
 
-    function find($id)
+    /**
+     * @param $id
+     * @return array|mixed
+     */
+    function find($id, $column=null): mixed
     {
-        $query =
-            $this->select($this->fillable)
-            .$this->join($this->foreignKeys)
-            .$this->from($this->table)
-            .$this->on($this->foreignKeys)
-            .$this->where($this->primaryKey, $id)
-            .$this->grouBy($this->table, $this->primaryKey);
-
-        $sql = $this->connection->prepare($query);
-        $sql->execute();
+        $sql = $this->get($id, $column);
         return $this->returnFormat($sql->fetch());
     }
 
-    function findAll($id)
+    /**
+     * @param $id
+     * @return array|mixed
+     */
+    function findAll($id, $column=null): mixed
     {
-        $query =
-            $this->select($this->fillable)
-            .$this->join($this->foreignKeys)
-            .$this->from($this->table)
-            .$this->on($this->foreignKeys)
-            .$this->where($this->primaryKey, $id)
-            .$this->grouBy($this->table, $this->primaryKey);
-
-        $sql = $this->connection->prepare($query);
-        $sql->execute();
+        $sql = $this->get($id, $column);
         return $this->returnFormat($sql->fetchAll());
     }
 
@@ -74,5 +59,24 @@ abstract class Model extends QueryBuilder
     function save($object)
     {
         //
+    }
+
+    public function get($id=null, $column=null): \PDOStatement|false
+    {
+        $id = !is_null($id) ? $id : null;
+        $column = !is_null($column) ? $column : $this->primaryKey;
+
+        $query =
+            $this->select($this->fillable)
+            . $this->join($this->foreignKeys, $this->relations)
+            . $this->from($this->table)
+            . $this->on($this->foreignKeys, $this->relations)
+            . (!is_null($id) ?
+                $this->where($column, $id) : '')
+            . $this->groupBy($this->table, $this->primaryKey);
+
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $sql;
     }
 }

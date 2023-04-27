@@ -10,10 +10,7 @@ function basePath($path): string
 
 function dd($value)
 {
-    echo "<pre>";
-    var_dump($value);
-    echo "<pre>";
-
+    echo jsonResponse($value);
     die();
 }
 
@@ -62,11 +59,7 @@ function singularize($string) {
         return $exceptions[$string];
     } else if(str_ends_with($string, 's')) {
         $singular = preg_replace('/s$/', '', $string); // enlève le "s" final
-        if ($singular == 'libraries') { // gère le cas particulier de "libraries"
-            $singular = 'library';
-        } elseif ($singular == 'properties') { // gère le cas particulier de "properties"
-            $singular = 'property';
-        } elseif (preg_match('/news$/i', $singular)) { // gère le cas particulier de "news"
+        if (preg_match('/news$/i', $singular)) { // gère le cas particulier de "news"
             $singular = preg_replace('/s$/i', '', $singular);
         } elseif (preg_match('/people$/i', $singular)) { // gère le cas particulier de "people"
             $singular = 'person';

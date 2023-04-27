@@ -4,11 +4,11 @@ namespace Models;
 
 use Core\Model;
 
-class Author extends Model
+class Edition extends Model
 {
-    protected string $table = 'authors';
+    protected string $table = 'editions';
     protected string $primaryKey = 'id';
-    protected array $fillable = ['firstname', 'lastname', 'birth_date', 'death_date'];
+    protected array $fillable = ['name', 'format'];
     protected array $foreignKeys = [];
     protected array $relations = [];
 }

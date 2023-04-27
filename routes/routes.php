@@ -22,6 +22,8 @@ $router->get('/books/{id}/tags', [\Controllers\Book::class, 'get_tags']);
 $router->get('/books/{id}/editions', [\Controllers\Book::class, 'editions']);
 $router->get('/books/{id}/publishers', [\Controllers\Book::class, 'publishers']);
 
+$router->get('/bookVersions', [\Controllers\BookVersion::class, 'index']);
+
 $router->get('/libraries', [\Controllers\Library::class, 'index']);
 $router->get('/libraries/{id}', [\Controllers\Library::class, 'show']);
 

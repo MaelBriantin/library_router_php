@@ -10,4 +10,5 @@ class User extends Model
     protected string $primaryKey = 'id';
     protected array $fillable = ['username', 'mail'];
     protected array $foreignKeys = [];
+    protected array $relations = [];
 }

@@ -2,58 +2,28 @@
 
 namespace Controllers;
 
-use Core\Connection;
-use PDO;
-
-class Author
+class Author extends \Models\Author
 {
-    protected $connection;
-    protected $table = 'authors';
-    public function __construct()
-    {
-        $this->connection = Connection::get();
-    }
-
     public function index()
     {
-        $sql = $this->connection->prepare("
-            SELECT * FROM library.authors;
-        ");
-        $sql->execute();
-        echo jsonResponse($sql->fetchAll());
+        echo jsonResponse($this->all());
     }
 
-    public function show($id, $return=null)
+    public function show($id)
     {
-        $sql = $this->connection->prepare("
-            SELECT * FROM library.authors WHERE id = :id;
-        ");
-        $sql->bindValue(':id', $id, PDO::PARAM_INT);
-        $sql->execute();
-        if(isset($return) && $return === true){
-            return $sql->fetch();
-        } else {
-            echo jsonResponse($sql->fetch());
-        }
+        echo jsonResponse($this->find($id));
     }
 
     public function destroy($id)
     {
-        $sql = $this->connection->prepare("
-            DELETE FROM library.authors WHERE id = :id;
-        ");
-        $sql->bindValue(':id', $id, PDO::PARAM_INT);
-        $sql->execute();
+
     }
 
-    public function books($id)
+    public function books($id): void
     {
-        $author = $this->show($id, true);
+        $author = $this->find($id);
         $books = new Book();
-        $author_books = $books->index(['authors_id', $id]);
-        $result = new \stdClass();
-        $result->author = $author;
-        $result->books = $author_books;
-        echo jsonResponse($result);
+        $author['books'] = $books->findAll($id, 'author_id');
+        echo jsonResponse($author);
     }
 }
