@@ -14,10 +14,5 @@ class Library extends Model
         'book_version_id' => BookVersion::class,
         'reading_state_id' => ReadingState::class
     ];
-    protected array $relations = [
-//          'books_tags' => ['tags', Tag::class],
-//        'tags' => ['books_tags', Tag::class],
-//        'publishers' => ['book_version', BookVersion::class],
-//        'editions' => ['book_version', BookVersion::class]
-    ];
+    protected array $relations = [];
 }

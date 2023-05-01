@@ -35,14 +35,12 @@ class Book extends \Models\Book
         //
     }
 
-    public function add_tag($tag_id)
+    public function addTags($id, $request)
     {
-
-    }
-
-    static function validator($request)
-    {
-
+        $newTagRelation['books_id'] = $id;
+        $newTagRelation['tags_id'] = $request['id'];
+        $bookTag = new BookTag();
+        $bookTag->save($bookTag->validate($newTagRelation));
     }
 
 }

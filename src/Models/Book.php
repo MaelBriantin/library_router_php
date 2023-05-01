@@ -15,6 +15,5 @@ class Book extends Model
     ];
     protected array $relations = [
         'tags' => ['books_tags', Tag::class]
-//        ['books_tags' => ['tags', Tag::class]]
     ];
 }

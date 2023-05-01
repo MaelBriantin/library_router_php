@@ -67,7 +67,18 @@ class Router
             if ($this->matchingUri($route, $this->method, $this->query, $this->uri)) {
                 $controller = new $route['controller'][0]();
                 $function = $route['controller'][1];
-                return $controller->{$function}($received_uri['id']);
+                $request = returnRequestJson();
+//                return $controller->{$function}($received_uri['id'], $request);
+                if (is_null($received_uri['id']) && !is_null($request)) {
+                    return $controller->{$function}($request);
+                }
+                if (!is_null($received_uri['id']) && is_null($request)){
+                    return $controller->{$function}($request);
+                }
+                if (!is_null($received_uri['id']) && !is_null($request)){
+                    return $controller->{$function}($received_uri['id'], $request);
+                }
+                //return $result;
             }
         }
         //abort();
@@ -102,5 +113,6 @@ class Router
         return $route['method'] === strtoupper($method)
             && $route['uri'] === $uri && empty($query);
     }
+
 }
 

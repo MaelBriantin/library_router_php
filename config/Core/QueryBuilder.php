@@ -25,6 +25,13 @@ class QueryBuilder
         return " FROM $table";
     }
 
+    function insertInto(array$insert, array$into, $table=null): string
+    {
+        $table = is_null($table) ? $this->table : $table;
+        return "INSERT INTO $table ";
+    }
+
+
     /**
      * @param $foreignKeys
      * @return string

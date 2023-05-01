@@ -2,15 +2,15 @@
 
 namespace Controllers;
 
-class BookVersion extends \Models\BookVersion
+class BookTag extends \Models\BookTag
 {
     public function index()
     {
         echo jsonResponse($this->all());
     }
 
-    public function show($id)
+    public function create()
     {
-        echo jsonResponse($this->find($id));
+        //
     }
 }

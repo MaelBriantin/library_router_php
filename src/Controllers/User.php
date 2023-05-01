@@ -21,15 +21,17 @@ class User extends \Models\User
 
     public function create($object)
     {
-        //
+        $validateValues = $this->validate($object);
+        $bookTag = new User();
+        $bookTag->save($validateValues);
     }
 
-    public function destroy($id)
+    public function destroy($id): void
     {
-        //
+        $this->delete($id);
     }
 
-    public function libraries($id): void
+    public function libraries(int $id): void
     {
         $user = $this->find($id);
         $library = new Library();

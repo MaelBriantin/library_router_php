@@ -51,17 +51,35 @@ abstract class Model extends QueryBuilder
         return $this->returnFormat($sql->fetchAll());
     }
 
-    function delete($id)
+    function delete($id): void
     {
-        //
+        $query =
+            "DELETE "
+            . $this->from($this->table)
+            . $this->where($this->primaryKey, $id);
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
     }
 
-    function save($object)
+    function save($data)
     {
-        //
+        if (isset($data['id'])) {
+            dd('set value');
+        } else {
+            $this->insert($data);
+        }
     }
 
-    public function get($id=null, $column=null): \PDOStatement|false
+    function insert($object)
+    {
+        $columns = implode(", ", array_keys($object));
+        $values = implode("', '", array_values($object));
+        $query = "INSERT INTO $this->table ($columns) VALUES ('$values')";
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+    }
+
+    function get($id=null, $column=null): \PDOStatement|false
     {
         $id = !is_null($id) ? $id : null;
         $column = !is_null($column) ? $column : $this->primaryKey;
@@ -78,5 +96,27 @@ abstract class Model extends QueryBuilder
         $sql = $this->connection->prepare($query);
         $sql->execute();
         return $sql;
+    }
+
+    function unset($id): bool|\PDOStatement
+    {
+        $query =
+            "DELETE "
+            . $this->from($this->table)
+            . $this->where($this->primaryKey, $id);
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $sql;
+    }
+
+    function validate($array)
+    {
+        //dd($array);
+        $invalidKeys = array_diff(array_keys($array), $this->fillable);
+        if (empty($invalidKeys)) {
+            return array_intersect_key($array, array_flip($this->fillable));
+        } else {
+            abort(400, 'Woops...');
+        }
     }
 }

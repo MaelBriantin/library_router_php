@@ -10,7 +10,8 @@ function basePath($path): string
 
 function dd($value)
 {
-    echo jsonResponse($value);
+    //echo jsonResponse($value);
+    echo var_dump($value);
     die();
 }
 
@@ -92,5 +93,13 @@ function _toCamelCase($string) {
         return $camelCaseString;
     } else {
         return $string;
+    }
+}
+
+function returnRequestJson() {
+    $content_type = $_SERVER['CONTENT_TYPE'] ?? '';
+    if (stripos($content_type, 'application/json') === 0) {
+        $json_data = file_get_contents('php://input');
+        return json_decode($json_data, true);
     }
 }
