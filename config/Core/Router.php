@@ -68,17 +68,18 @@ class Router
                 $controller = new $route['controller'][0]();
                 $function = $route['controller'][1];
                 $request = returnRequestJson();
-//                return $controller->{$function}($received_uri['id'], $request);
-                if (is_null($received_uri['id']) && !is_null($request)) {
-                    return $controller->{$function}($request);
+                $which_param = $this->returnParamRouter($received_uri, $request);
+
+                switch ($which_param) {
+                    case 'none':
+                        return $controller->{$function}();
+                    case 'only request':
+                        return $controller->{$function}($request);
+                    case 'only id':
+                        return $controller->{$function}($received_uri['id']);
+                    case 'both id and request':
+                        return $controller->{$function}($received_uri['id'], $request);
                 }
-                if (!is_null($received_uri['id']) && is_null($request)){
-                    return $controller->{$function}($request);
-                }
-                if (!is_null($received_uri['id']) && !is_null($request)){
-                    return $controller->{$function}($received_uri['id'], $request);
-                }
-                //return $result;
             }
         }
         //abort();
@@ -114,5 +115,19 @@ class Router
             && $route['uri'] === $uri && empty($query);
     }
 
+    function returnParamRouter($received_uri, $request) {
+        if (is_null($received_uri['id']) && !is_null($request)) {
+            return 'only request';
+        }
+        if (!is_null($received_uri['id']) && is_null($request)){
+            return 'only id';
+        }
+        if (!is_null($received_uri['id']) && !is_null($request)){
+            return 'both id and request';
+        }
+        if (is_null($received_uri['id']) && is_null($request)){
+            return 'none';
+        }
+    }
 }
 
