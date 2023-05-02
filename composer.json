@@ -1,0 +1,17 @@
+{
+    "name": "mael/library_router_mongo",
+    "autoload": {
+        "psr-4": {
+            "Mael\\LibraryRouterMongo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MaelBriantin",
+            "email": "mael.briantin@gmail.com"
+        }
+    ],
+    "require": {
+        "mongodb/mongodb": "^1.15"
+    }
+}

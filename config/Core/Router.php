@@ -69,7 +69,6 @@ class Router
                 $function = $route['controller'][1];
                 $request = returnRequestJson();
                 $which_param = $this->returnParamRouter($received_uri, $request);
-
                 switch ($which_param) {
                     case 'none':
                         return $controller->{$function}();
@@ -96,8 +95,7 @@ class Router
     function isDynamicParam($expected_uri, $received_uri): bool
     {
         return $expected_uri['path'] === $received_uri['path']
-            && str_contains($expected_uri['id'], '{')
-            && is_numeric($received_uri['id']);
+            && str_contains($expected_uri['id'], '{');
 
     }
     function explodeUri($uri): array

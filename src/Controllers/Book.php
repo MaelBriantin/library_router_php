@@ -3,20 +3,29 @@
 namespace Controllers;
 
 
+use MongoDB\BSON\ObjectId;
 use PDO;
 use Core\Connection;
 
 class Book extends \Models\Book
 {
+    protected $connection;
 
-    public function index(array $param=null)
+    public function __construct()
     {
-        echo jsonResponse($this->all());
+        $this->connection = new Connection();
+        $this->connection->get()->selectCollection($this->table);
+    }
+
+    public function index()
+    {
+        echo jsonResponse($this->connection->get()->selectCollection($this->table)->find([], ['limit' => 4, 'skip' => 0])->toArray());
     }
 
     public function show($id)
     {
-        echo jsonResponse($this->find($id));
+        $oid = new ObjectId($id);
+        echo jsonResponse($this->connection->get()->selectCollection($this->table)->findOne(['_id' => $oid]));
     }
 
     public function update($object, $id)

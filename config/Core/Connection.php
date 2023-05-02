@@ -2,8 +2,8 @@
 
 namespace Core;
 
-use PDO;
-use PDOException;
+use Exception;
+use MongoDB\Client;
 
 class Connection
 {
@@ -18,11 +18,12 @@ class Connection
     {
         if (!self::$connection) {
             try {
-                self::$connection = self::createConnection();
-            } catch (PDOException $e) {
-                // Log db error message
-                // $e->getMessage()
-                throw new PDOException('Database ERROR:' . $e->getMessage());
+                $uri = "mongodb://localhost:27017";
+                $client = new Client($uri);
+                self::$connection = $client->selectDatabase('library');
+            } catch (Exception $e) {
+                echo jsonResponse('Database ERROR:' . $e->getMessage());
+                die();
             }
         }
 
@@ -31,9 +32,6 @@ class Connection
 
     protected static function createConnection()
     {
-        return new PDO(env('DB_DSN'), env('DB_USERNAME'), env('DB_PASSWORD'), [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-        ]);
+
     }
 }
