@@ -13,17 +13,20 @@ class User extends \Models\User
         echo jsonResponse($this->find($id));
     }
 
-    public function update($object, $id)
+    public function update($id, $object)
     {
-        //
+        $user = $this->find($id);
+        $validateObject = $this->validate($object);
+        $user['username'] = $validateObject['username'];
+        $user['mail'] = $validateObject['mail'];
+        $this->save($user);
+        echo jsonResponse($user);
     }
 
 
     public function create($object)
     {
-        $validateValues = $this->validate($object);
-        $bookTag = new User();
-        $bookTag->save($validateValues);
+        $this->save($this->validate($object));
     }
 
     public function destroy($id): void

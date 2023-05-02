@@ -103,3 +103,7 @@ function returnRequestJson() {
         return json_decode($json_data, true);
     }
 }
+
+function filterAndRemoveKey($array, $keyToRemove){
+    return array_diff_key($array, [$keyToRemove => '']);
+}

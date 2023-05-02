@@ -64,7 +64,7 @@ abstract class Model extends QueryBuilder
     function save($data)
     {
         if (isset($data['id'])) {
-            dd('set value');
+            $this->set($data);
         } else {
             $this->insert($data);
         }
@@ -79,13 +79,30 @@ abstract class Model extends QueryBuilder
         $sql->execute();
     }
 
+    function set($object)
+    {
+        $objectId = $object['id'];
+        $data = filterAndRemoveKey($object, 'id');
+        $query = "
+        UPDATE $this->table SET ";
+        $queryArray = [];
+        foreach ($data as $key => $value) {
+            $queryArray[] = " $key = '$value' ";
+        }
+        $query .= implode(',', $queryArray);
+        $query .= " WHERE id = $objectId";
+        //dd($query);
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+    }
+
     function get($id=null, $column=null): \PDOStatement|false
     {
         $id = !is_null($id) ? $id : null;
         $column = !is_null($column) ? $column : $this->primaryKey;
 
         $query =
-            $this->select($this->fillable)
+            $this->select(array_merge([$this->primaryKey], $this->fillable))
             . $this->join($this->foreignKeys, $this->relations)
             . $this->from($this->table)
             . $this->on($this->foreignKeys, $this->relations)
