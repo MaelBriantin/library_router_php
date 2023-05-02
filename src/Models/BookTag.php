@@ -8,10 +8,10 @@ class BookTag extends Model
 {
     protected string $table = 'books_tags';
     protected string $primaryKey = 'id';
-    protected array $fillable = ['books_id', 'tags_id'];
+    protected array $fillable = ['book_id', 'tag_id'];
     protected array $foreignKeys = [
-        'books_id' => Book::class,
-        'tags_id' => Tag::class
+        'book_id' => Book::class,
+        'tag_id' => Tag::class
     ];
     protected array $relations = [
 

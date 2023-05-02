@@ -11,7 +11,7 @@ class QueryBuilder
     function select(array $fillable): string
     {
         foreach ($fillable as &$element) {
-            $element = "$element AS "._toCamelCase($element);
+            $element = "$this->table.$element AS "._toCamelCase($element);
         }
         return "SELECT ".implode(', ', $fillable);
     }
