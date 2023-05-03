@@ -104,6 +104,19 @@ function returnRequestJson() {
     }
 }
 
-function filterAndRemoveKey($array, $keyToRemove){
-    return array_diff_key($array, [$keyToRemove => '']);
+/**
+ * @param array $originalArray
+ * @param array $keysToRemove
+ * @return array original array without excluded keys
+ */
+function exclude(array $originalArray, array $keysToRemove): array
+{
+    $keys = array_fill_keys($keysToRemove, '');
+    return array_diff_key($originalArray, $keys);
+}
+
+function only(array $array, array $keysToKeep): array
+{
+    $keys = array_fill_keys($keysToKeep, '');
+    return array_intersect_key($array, $keys);
 }

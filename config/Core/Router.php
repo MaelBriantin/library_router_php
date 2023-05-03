@@ -82,7 +82,7 @@ class Router
                 }
             }
         }
-        //abort();
+        abort(400, 'Wrong direction, cowboy!');
     }
     function interpretDynamicParam($expected_uri, $received_uri): string
     {

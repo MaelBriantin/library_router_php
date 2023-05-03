@@ -82,6 +82,11 @@ class QueryBuilder
         return " WHERE $this->table.$column = $value";
     }
 
+    function andWhere($column, $value): string
+    {
+        return " AND $this->table.$column = $value";
+    }
+
     /**
      * @param $value
      * @return array|mixed
@@ -142,7 +147,7 @@ class QueryBuilder
                 $relationFillable = $relationInstance->fillable;
 
                 foreach ($relationFillable as $fill){
-                    $result[] = "GROUP_CONCAT($relationTable.$fill SEPARATOR ',') AS ".$relationTable.ucfirst(_toCamelCase($fill));
+                    $result[] = "GROUP_CONCAT($relationTable.$fill SEPARATOR ', ') AS ".$relationTable.ucfirst(_toCamelCase($fill));
                 }
             }
         }
@@ -152,8 +157,10 @@ class QueryBuilder
     {
         if (!empty($relations)) {
             foreach ($relations as $key => $value) {
-                $result[] = " LEFT JOIN $value[0] ON {$this->table}.{$this->primaryKey} = $value[0].$this->table"."_"."id";
-                $result[] = " LEFT JOIN $key ON $value[0].{$key}_id = {$key}.id";
+                $targetTable = $key;
+                $relationTable = $value[0];
+                $result[] = " LEFT JOIN $relationTable ON {$this->table}.{$this->primaryKey} = $relationTable.".singularize($this->table)."_"."id";
+                $result[] = " LEFT JOIN $targetTable ON $relationTable.".singularize($targetTable)."_id = {$targetTable}.id";
             }
         }
         return $result;

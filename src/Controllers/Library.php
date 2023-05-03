@@ -27,7 +27,7 @@ class Library extends \Models\Library
 
     public function create($object)
     {
-        //
+        $this->save($object);
     }
 
     public function destroy($id)

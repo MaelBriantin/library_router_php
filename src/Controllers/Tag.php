@@ -5,22 +5,14 @@ namespace Controllers;
 use Core\Connection;
 use PDO;
 
-class Tag
+class Tag extends \Models\Tag
 {
     protected $connection;
 
-    public function __construct()
-    {
-        $this->connection = Connection::get();
-    }
 
     public function index ()
     {
-        $sql = $this->connection->prepare("
-        SELECT * FROM tags
-        ");
-        $sql->execute();
-        echo jsonResponse($sql->fetchAll());
+        echo jsonResponse($this->all());
     }
 
     public function show_by_book_id ($book_id)

@@ -11,6 +11,6 @@ class Tag extends Model
     protected array $fillable = ['name'];
     protected array $foreignKeys = [];
     protected array $relations = [
-        'books_tags' => ['books', Book::class]
+        //'books' => ['books_tags', Book::class]
     ];
 }

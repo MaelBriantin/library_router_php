@@ -51,12 +51,15 @@ abstract class Model extends QueryBuilder
         return $this->returnFormat($sql->fetchAll());
     }
 
-    function delete($id): void
+    function delete(array $where, array $andWhere=null): void
     {
         $query =
             "DELETE "
             . $this->from($this->table)
-            . $this->where($this->primaryKey, $id);
+            . $this->where($where[0], $where[2]);
+        $query .= !is_null($andWhere) ?
+             $this->andWhere($andWhere[0], $andWhere[2])
+            : '';
         $sql = $this->connection->prepare($query);
         $sql->execute();
     }
@@ -73,27 +76,26 @@ abstract class Model extends QueryBuilder
     function insert($object)
     {
         $columns = implode(", ", array_keys($object));
-        $values = implode("', '", array_values($object));
-        $query = "INSERT INTO $this->table ($columns) VALUES ('$values')";
+        $values = implode(", ", array_fill(0, count($object), '?'));
+        $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
         $sql = $this->connection->prepare($query);
-        $sql->execute();
+        $sql->execute(array_values($object));
     }
 
     function set($object)
     {
         $objectId = $object['id'];
-        $data = filterAndRemoveKey($object, 'id');
+        $data = exclude($object, ['id']);
         $query = "
         UPDATE $this->table SET ";
         $queryArray = [];
         foreach ($data as $key => $value) {
-            $queryArray[] = " $key = '$value' ";
+            $queryArray[] = " $key = ? ";
         }
         $query .= implode(',', $queryArray);
         $query .= " WHERE id = $objectId";
-        //dd($query);
         $sql = $this->connection->prepare($query);
-        $sql->execute();
+        $sql->execute(array_values($data));
     }
 
     function get($id=null, $column=null): \PDOStatement|false
@@ -109,7 +111,7 @@ abstract class Model extends QueryBuilder
             . (!is_null($id) ?
                 $this->where($column, $id) : '')
             . $this->groupBy($this->table, $this->primaryKey);
-
+        //dd($query);
         $sql = $this->connection->prepare($query);
         $sql->execute();
         return $sql;
@@ -128,12 +130,25 @@ abstract class Model extends QueryBuilder
 
     function validate($array)
     {
-        //dd($array);
-        $invalidKeys = array_diff(array_keys($array), $this->fillable);
+        $invalidKeys = array_diff($this->fillable, array_keys($array));
+        //dd($invalidKeys);
         if (empty($invalidKeys)) {
             return array_intersect_key($array, array_flip($this->fillable));
         } else {
             abort(400, 'Woops...');
         }
     }
+
+    function selectAverage($what, $whereColumn, $WhereId)
+    {
+        $query =
+            "SELECT AVG($what) "
+            .$this->from($this->table)
+            .$this->where($whereColumn, $WhereId);
+        //dd($query);
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $sql->fetchColumn();
+    }
+
 }

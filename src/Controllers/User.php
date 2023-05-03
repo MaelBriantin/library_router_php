@@ -13,12 +13,11 @@ class User extends \Models\User
         echo jsonResponse($this->find($id));
     }
 
-    public function update($id, $object)
+    public function update($id, $request)
     {
         $user = $this->find($id);
-        $validateObject = $this->validate($object);
-        $user['username'] = $validateObject['username'];
-        $user['mail'] = $validateObject['mail'];
+        $user['username'] = $request['username'] ?? $user['username'];
+        $user['mail'] = $request['mail'] ?? $user['mail'];
         $this->save($user);
         echo jsonResponse($user);
     }
@@ -31,7 +30,7 @@ class User extends \Models\User
 
     public function destroy($id): void
     {
-        $this->delete($id);
+        $this->delete(['user_id', '=', $id]);
     }
 
     public function libraries(int $id): void
@@ -40,5 +39,15 @@ class User extends \Models\User
         $library = new Library();
         $user['library'] = $library->findAll($id, 'user_id');
         echo jsonResponse($user);
+    }
+
+    public function addBookToLibrary($id, $request)
+    {
+        $library = new Library();
+        $newBook = $request;
+        $newBook['reading_state_id'] = 1;
+        $newBook['user_id'] = $id;
+        //dd($newBook);
+        $library->save($newBook);
     }
 }
