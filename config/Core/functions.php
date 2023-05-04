@@ -105,18 +105,43 @@ function returnRequestJson() {
 }
 
 /**
- * @param array $originalArray
- * @param array $keysToRemove
- * @return array original array without excluded keys
+ * @param array $keysToRemove Array that contain all the keys the method will remain
+ * @param array $inArray Array where modifications will be applied
+ * @param bool|null $isAssocArray Is the array an associative array
+ * @return array
  */
-function exclude(array $originalArray, array $keysToRemove): array
+function exclude(array $keysToRemove, array $inArray, bool $isAssocArray=null): array
 {
-    $keys = array_fill_keys($keysToRemove, '');
-    return array_diff_key($originalArray, $keys);
+    $result = [];
+    if ($isAssocArray) {
+        foreach ($inArray as $element) {
+            $keys = array_fill_keys($keysToRemove, '');
+            $result[] = array_intersect_key($element, $keys);
+        }
+    } else {
+        $keys = array_fill_keys($keysToRemove, '');
+        return array_intersect_key($inArray, $keys);
+    }
+    return $result;
 }
 
-function only(array $array, array $keysToKeep): array
+/**
+ * @param array $keysToKeep Array that contain all the keys the method will maintain
+ * @param array $inArray Array where modifications will be applied
+ * @param bool|null $isAssocArray Is the array an associative array
+ * @return array
+ */
+function only(array $keysToKeep, array $inArray, bool $isAssocArray=null): array
 {
-    $keys = array_fill_keys($keysToKeep, '');
-    return array_intersect_key($array, $keys);
+    $result = [];
+    if ($isAssocArray) {
+        foreach ($inArray as $element) {
+            $keys = array_fill_keys($keysToKeep, '');
+            $result[] = array_intersect_key($element, $keys);
+        }
+    } else {
+        $keys = array_fill_keys($keysToKeep, '');
+        return array_intersect_key($inArray, $keys);
+    }
+    return $result;
 }

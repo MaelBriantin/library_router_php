@@ -77,14 +77,14 @@ class QueryBuilder
      * @param $value
      * @return string
      */
-    function where($column, $value): string
+    function where($column, $operator, $value): string
     {
-        return " WHERE $this->table.$column = $value";
+        return " WHERE $this->table.$column $operator $value";
     }
 
-    function andWhere($column, $value): string
+    function andWhere($column, $operator, $value): string
     {
-        return " AND $this->table.$column = $value";
+        return " AND $this->table.$column $operator $value";
     }
 
     /**
@@ -164,5 +164,24 @@ class QueryBuilder
             }
         }
         return $result;
+    }
+
+    function orderBy(array $orderBy)
+    {
+        $by = array_values($orderBy)[0];
+        $ascOrDesc = array_keys($orderBy)[0];
+        return " ORDER BY $by $ascOrDesc ";
+    }
+
+    function limit($limit, $offset=null)
+    {
+        $query = " LIMIT $limit ";
+        $query .= !is_null($offset) ? " OFFSET $offset " : "";
+        return $query;
+    }
+
+    function between($between, $and)
+    {
+        return " BETWEEN $between AND $and";
     }
 }

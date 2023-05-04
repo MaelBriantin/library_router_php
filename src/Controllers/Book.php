@@ -45,7 +45,7 @@ class Book extends \Models\Book
     public function addTag($id, $request)
     {
         $newTagRelation['book_id'] = $id;
-        $newTagRelation['tag_id'] = $request['id'];
+        $newTagRelation['tag_id'] = $request['tagId'];
         $bookTag = new BookTag();
         $bookTag->save($newTagRelation);
     }
@@ -53,7 +53,7 @@ class Book extends \Models\Book
     public function tags($id)
     {
         $bookTag = new BookTag();
-        echo jsonResponse($bookTag->findAll($id, 'book_id'));
+        echo jsonResponse(only(['tagName', 'id'], $bookTag->findAll($id, 'book_id'), true));
     }
 
     public function removeTag($id, $request)
@@ -76,12 +76,36 @@ class Book extends \Models\Book
     public function comments($id)
     {
         $book = $this->find($id);
-        $instance = new Comment();
-        $comments = $instance->findAll($id, 'book_id');
-        $book['averageReview'] = $instance->selectAverage('review', 'book_id', $id);
-        foreach ($comments as $comment){
-            $book['comments'][] = only($comment, ['id', 'review', 'comment', 'userUsername']);
-        }
+        $commentInstance = new Comment();
+        $comments = $commentInstance->findAll($id, 'book_id');
+        $averageReview = $commentInstance->selectAverage('review', ['book_id', '=', $id]);
+        $book['averageReview'] = round($averageReview, 1);
+        $book['comments'] = only(['id', 'review', 'comment', 'userUsername'], $comments, true);
         echo jsonResponse($book);
+    }
+
+    public function search($search, $request)
+    {
+        $element = "'%$request[$search]%'";
+        $query =
+            $this->select($this->fillable)
+            .$this->from($this->table)
+            .$this->where($search, 'like', $element);
+        //dd($query);
+        $result = $this->customQuery($query);
+        dd($result->fetch());
+    }
+
+    public function infos($id)
+    {
+        $result = $this->find($id);
+        $tags = new \Models\BookTag();
+        $result['tags'] = only(['id', 'tagName'], $tags->findAll($id, 'book_id'), true);
+        $comments = new Comment();
+        $reviews = $comments->findAll($id, 'book_id');
+        $averageReview = $comments->selectAverage('review', ['book_id', '=', $id]);
+        $result['averageReview'] = round($averageReview, 1);
+        $result['reviews'] = only(['id', 'review', 'comment', 'userUsername'], $reviews, true);
+        echo jsonResponse($result);
     }
 }

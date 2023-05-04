@@ -4,6 +4,9 @@ namespace Core;
 
 abstract class Model extends QueryBuilder
 {
+    protected array $orderBy;
+    protected int $limit;
+    protected int $offset;
     protected string $table;
     protected string $primaryKey = 'id';
     protected array $fillable = [];
@@ -51,14 +54,19 @@ abstract class Model extends QueryBuilder
         return $this->returnFormat($sql->fetchAll());
     }
 
+    /**
+     * @param array $where [column, operator, value]
+     * @param array|null $andWhere [column, operator, value]
+     * @return void
+     */
     function delete(array $where, array $andWhere=null): void
     {
         $query =
             "DELETE "
             . $this->from($this->table)
-            . $this->where($where[0], $where[2]);
+            . $this->where($where[0], $where[1], $where[2]);
         $query .= !is_null($andWhere) ?
-             $this->andWhere($andWhere[0], $andWhere[2])
+             $this->andWhere($andWhere[0], $andWhere[1], $andWhere[2])
             : '';
         $sql = $this->connection->prepare($query);
         $sql->execute();
@@ -85,7 +93,7 @@ abstract class Model extends QueryBuilder
     function set($object)
     {
         $objectId = $object['id'];
-        $data = exclude($object, ['id']);
+        $data = exclude(['id'], $object);
         $query = "
         UPDATE $this->table SET ";
         $queryArray = [];
@@ -109,8 +117,11 @@ abstract class Model extends QueryBuilder
             . $this->from($this->table)
             . $this->on($this->foreignKeys, $this->relations)
             . (!is_null($id) ?
-                $this->where($column, $id) : '')
+                $this->where($column, '=', $id) : '')
             . $this->groupBy($this->table, $this->primaryKey);
+        //dd($query);
+        $query .= isset($this->orderBy) ? $this->orderBy($this->orderBy) : '';
+        $query .= isset($this->limit) ? $this->limit($this->limit) : '';
         //dd($query);
         $sql = $this->connection->prepare($query);
         $sql->execute();
@@ -122,7 +133,7 @@ abstract class Model extends QueryBuilder
         $query =
             "DELETE "
             . $this->from($this->table)
-            . $this->where($this->primaryKey, $id);
+            . $this->where($this->primaryKey, '=', $id);
         $sql = $this->connection->prepare($query);
         $sql->execute();
         return $sql;
@@ -139,16 +150,35 @@ abstract class Model extends QueryBuilder
         }
     }
 
-    function selectAverage($what, $whereColumn, $WhereId)
+    function selectAverage(string $what, array $where, array $andWhere=null)
     {
         $query =
             "SELECT AVG($what) "
             .$this->from($this->table)
-            .$this->where($whereColumn, $WhereId);
-        //dd($query);
+            .$this->where($where[0], $where[1], $where[2]);
+        $query .= !is_null($andWhere) ? $this->andWhere($andWhere[0], $andWhere[1], $andWhere[2]) : '';
         $sql = $this->connection->prepare($query);
         $sql->execute();
         return $sql->fetchColumn();
     }
 
+    function selectCount(string $count, array $where, array $andWhere=null)
+    {
+        $query =
+            "SELECT COUNT($count) "
+            .$this->from($this->table)
+            .$this->where($where[0], $where[1], $where[2]);
+        $query .= !is_null($andWhere) ? $this->andWhere($andWhere[0], $andWhere[1], $andWhere[2]) : '';
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $sql->fetchColumn();
+    }
+
+    public function customQuery($query)
+    {
+        //dd($query);
+        $sql = $this->connection->prepare($query);
+        $sql->execute();
+        return $sql;
+    }
 }
