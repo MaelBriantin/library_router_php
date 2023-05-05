@@ -7,6 +7,7 @@ $router->post('/books', [\Controllers\Book::class, 'create']);
 
 //Attribution/suppression de tags à un livre, sans lien avec un utilisateur
 $router->post('/books/{id}/tags', [\Controllers\Book::class, 'addTag']);
+$router->delete('/books/{id}/tags', [\Controllers\Book::class, 'removeTag']);
 
 //Ajout d’éditions d’un livre dans la bibliothèque personnelle d’un utilisateur
 $router->post('/users/{id}/libraries', [\Controllers\User::class, 'addBookToLibrary']);

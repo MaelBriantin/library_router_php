@@ -34,7 +34,7 @@ class Book extends \Models\Book
 
     public function create($object)
     {
-        //
+        $this->save($this->validate($object));
     }
 
     public function destroy($id)
