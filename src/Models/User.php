@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Core\Connection;
 use Core\Model;
 
 class User extends Model

@@ -4,14 +4,17 @@ namespace Core;
 
 abstract class Model extends QueryBuilder
 {
+
     protected string $table;
     protected string $primaryKey = 'id';
     protected array $fillable = [];
     protected array $foreignKeys = [];
     protected array $relations= [];
-    private ?\PDO $connection;
+    private $connection;
+    protected $collection;
     public function __construct(array $attributes = []) {
-        $this->connection = Connection::get();
+        $this->connection = new Connection();
+        $this->collection = $this->connection->get()->selectCollection($this->table);
         $this->fill($attributes);
     }
     public function fill(array $attributes) {

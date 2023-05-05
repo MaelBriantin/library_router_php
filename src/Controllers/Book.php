@@ -4,28 +4,24 @@ namespace Controllers;
 
 
 use MongoDB\BSON\ObjectId;
-use PDO;
-use Core\Connection;
 
 class Book extends \Models\Book
 {
-    protected $connection;
-
-    public function __construct()
-    {
-        $this->connection = new Connection();
-        $this->connection->get()->selectCollection($this->table);
-    }
-
     public function index()
     {
-        echo jsonResponse($this->connection->get()->selectCollection($this->table)->find([], ['limit' => 4, 'skip' => 0])->toArray());
+        echo jsonResponse(
+            $this->collection
+                ->find([], ['limit' => 10, 'skip' => 0])
+                ->toArray()
+        );
     }
 
     public function show($id)
     {
-        $oid = new ObjectId($id);
-        echo jsonResponse($this->connection->get()->selectCollection($this->table)->findOne(['_id' => $oid]));
+        echo jsonResponse(
+            $this->collection
+                ->findOne(['_id' => new ObjectId($id)])
+        );
     }
 
     public function update($object, $id)
@@ -36,7 +32,7 @@ class Book extends \Models\Book
 
     public function create($object)
     {
-        //
+        $this->collection->insertOne($object);
     }
 
     public function destroy($id)
@@ -46,10 +42,34 @@ class Book extends \Models\Book
 
     public function addTags($id, $request)
     {
-        $newTagRelation['books_id'] = $id;
-        $newTagRelation['tags_id'] = $request['id'];
-        $bookTag = new BookTag();
-        $bookTag->save($bookTag->validate($newTagRelation));
+        //
+    }
+
+    public function addTag($id, $request)
+    {
+        //dd($request);
+        $this->collection->updateOne(["_id" => new \MongoDB\BSON\ObjectId($id)],
+            ['$addToSet' =>
+                [
+                    "tags" =>
+                        $request['tag'],
+
+                ]
+            ]
+        );
+    }
+
+    public function removeTag($id, $request)
+    {
+        $this->collection->updateOne(["_id" => new \MongoDB\BSON\ObjectId($id)],
+            ['$pull' =>
+                [
+                    "tags" =>
+                        $request['tag'],
+
+                ]
+            ]
+        );
     }
 
 }

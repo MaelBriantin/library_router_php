@@ -11,7 +11,7 @@ function basePath($path): string
 function dd($value)
 {
     //echo jsonResponse($value);
-    echo var_dump($value);
+    echo jsonResponse($value);
     die();
 }
 

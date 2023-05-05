@@ -1,4 +1,8 @@
 <?php
+// Composer autoload (required for MongoDB)
+require basePath('vendor/autoload.php');
+
+// Custom autoload
 const CLASS_FOLDER = [
     'Core' => 'config',
     'Traits' => 'src',
