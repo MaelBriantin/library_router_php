@@ -20,57 +20,33 @@ $router->put('/users/{id}/reviews', [\Controllers\User::class, 'updateReview']);
 
 //Recherche de livre pour ajouter à sa bibliothèque:
 //○ par auteur
-$router->get('/authors/{id}/books', [\Controllers\Author::class, 'books']);
+$router->get('/search/author', [\Controllers\Book::class, 'searchElement']);
 //○ par genre/tags
-$router->get('/tags/{id}/books', [\Controllers\Tag::class, 'books']);
+$router->get('/search/tag', [\Controllers\Book::class, 'searchInArray']);
 //○ par titre
-$router->post('/search/title', [\Controllers\Book::class, 'search']);
+$router->get('/search/title', [\Controllers\Book::class, 'searchElement']);
 //○ par éditeur
-$router->get('/publishers/{id}/books', [\Controllers\BookVersion::class, 'findByPublisher']);
+$router->get('/search/publisher', [\Controllers\Book::class, 'searchElement']);
 //○ (facultatif) par édition
-$router->get('/editions/{id}/books', [\Controllers\BookVersion::class, 'findByEdition']);
+$router->get('/search/edition', [\Controllers\Book::class, 'searchElement']);
 
 //Dans les résultats de la recherche on aimerait pouvoir voir en plus des attributs du livre, l’auteur, la maison d’édition, les éditions disponibles et la note moyenne donnée par les utilisateurs.
-$router->get('/books/{id}/infos', [\Controllers\Book::class, 'infos']);
+$router->get('/books/{id}', [\Controllers\Book::class, 'show']);
 
 //La recherche est limitée à un certain nombre de résultats par page et les livres sont triés du plus récent au plus ancien.
 $router->get('/books', [\Controllers\Book::class, 'index']);
 
 //Sur une page profil on devrait pouvoir afficher le nombre de livres possédés (peu importe l’édition), le nombre de livres en cours de lecture, le nombre de livres lus lors du dernier mois.
-$router->get('/users/{id}/profile', [\Controllers\User::class, 'profile']);
+$router->get('/users/{id}', [\Controllers\User::class, 'show']);
 
 //Une page auteur pourrait afficher le nombre de livres ajoutés dans les listes d’envie/les bibliothèques et la note moyenne de ses ouvrages.
-$router->get('/authors/{id}/profile', [\Controllers\Author::class, 'profile']);
+$router->post('/authors', [\Controllers\Book::class, 'author']);
 
 $router->get('/users', [\Controllers\User::class, 'index']);
 $router->get('/users/{id}', [\Controllers\User::class, 'show']);
-$router->get('/users/{id}/libraries', [\Controllers\User::class, 'libraries']);
-$router->delete('/users/{id}', [\Controllers\User::class, 'destroy']);
-$router->put('/users/{id}', [\Controllers\User::class, 'update']);
-$router->post('/users', [\Controllers\User::class, 'create']);
-
-$router->get('/authors', [\Controllers\Author::class, 'index']);
-$router->get('/authors/{id}', [\Controllers\Author::class, 'show']);
-$router->get('/authors/{id}/books', [\Controllers\Author::class, 'books']);
-$router->delete('/authors/{id}', [\Controllers\Author::class, 'destroy']);
-$router->put('/authors/{id}', [\Controllers\Author::class, 'update']);
-$router->post('/authors', [\Controllers\Author::class, 'create']);
 
 $router->get('/books', [\Controllers\Book::class, 'index']);
 $router->post('/books', [\Controllers\Book::class, 'create']);
 $router->get('/books/{id}', [\Controllers\Book::class, 'show']);
-$router->delete('/books/{id}', [\Controllers\Book::class, 'destroy']);
-$router->post('/books/{id}/tags', [\Controllers\Book::class, 'addTags']);
-$router->get('/books/{id}/editions', [\Controllers\Book::class, 'editions']);
-$router->get('/books/{id}/publishers', [\Controllers\Book::class, 'publishers']);
-
-$router->get('/bookVersions', [\Controllers\BookVersion::class, 'index']);
-
-$router->get('/libraries', [\Controllers\Library::class, 'index']);
-$router->get('/libraries/{id}', [\Controllers\Library::class, 'show']);
-
-$router->get('/books_tags', [\Controllers\BookTag::class, 'index']);
-
-
 
 $router->init();

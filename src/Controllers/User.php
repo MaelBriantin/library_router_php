@@ -3,7 +3,9 @@
 namespace Controllers;
 
 use Core\Connection;
+use DateTime;
 use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
 
 class User extends \Models\User
 {
@@ -14,10 +16,19 @@ class User extends \Models\User
 
     public function show($id)
     {
-        echo jsonResponse(
-            $this->collection
-                ->findOne(['_id' => new ObjectId($id)])
-        );
+        $lastMonth = new DateTime('-1 month');
+
+        $user = $this->collection
+                ->findOne(['_id' => new ObjectId($id)]);
+        $user['booksOwnedCount'] = $this->collection->countDocuments(['library.book' => ['$exists' => true]]);
+        $user['booksReadingCount'] = $this->collection->countDocuments(['library.readingStatus' => 'en cours']);
+
+        $user['lastMonthReadingBooksCount'] = $this->collection->countDocuments([
+            'library.readingStatus' => 'lu',
+            'library.readingEndDate' => ['$gte' => $lastMonth]
+        ]);
+
+        echo jsonResponse($user);
     }
 
     public function update($id, $object)
@@ -51,8 +62,8 @@ class User extends \Models\User
             ['$addToSet' =>
                 [
                     "library" => [
-                        "book"      => $request['bookId'],
-                        "edition"   => $request['edition'],
+                        "book" => $request['bookId'],
+                        "edition" => $request['edition'],
                         "publisher" => $request['publisher']
                     ]
                 ]
@@ -66,10 +77,55 @@ class User extends \Models\User
             ['$addToSet' =>
                 [
                     "wishlist" => [
-                        "book"      => $request['bookId'],
+                        "book" => $request['bookId'],
                     ]
                 ]
             ]
         );
+    }
+
+    public function postReview($id, $request)
+    {
+        $book = new \Models\Book();
+        /** @var BSONDocument $existingReview */
+        $existingReview = $book->collection->findOne(
+            [
+                "_id" => new \MongoDB\BSON\ObjectId($request['bookId']),
+                "reviews.userId" => $id
+            ]
+        );
+
+        if (!$existingReview) {
+            $book->collection->updateOne(["_id" => new \MongoDB\BSON\ObjectId($request['bookId'])],
+                ['$addToSet' =>
+                    [
+                        'reviews' => [
+                            "userId" => $id,
+                            "review" => $request['review'],
+                            "comment" => $request['comment']
+                        ]
+                    ]]
+            );
+        }
+        else {
+            abort(400, 'You have already posted a review for this book, space cowboy.');
+        }
+    }
+
+    public function updateReview($id, $request)
+    {
+        $book = new \Models\Book();
+        //dd($request);
+
+            $book->collection->updateOne(
+                ["_id" => new \MongoDB\BSON\ObjectId($request['bookId']), "reviews.userId" => $id],
+                [
+                    '$set' => [
+                        'reviews.$.review' => $request['review'],
+                        'reviews.$.comment' => $request['comment'],
+                    ]
+                ]
+            );
+            //dd($result->getModifiedCount());
     }
 }
