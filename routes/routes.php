@@ -21,15 +21,15 @@ $router->put('/users/{id}/reviews', [\Controllers\User::class, 'updateReview']);
 
 //Recherche de livre pour ajouter à sa bibliothèque:
 //○ par auteur
-$router->get('/authors/{id}/books', [\Controllers\Author::class, 'books']);
+$router->post('/authors/{id}/books', [\Controllers\Author::class, 'books']);
 //○ par genre/tags
-$router->get('/tags/{id}/books', [\Controllers\Tag::class, 'books']);
+$router->post('/tags/{id}/books', [\Controllers\Tag::class, 'books']);
 //○ par titre
-$router->get('/search/title', [\Controllers\Book::class, 'search']);
+$router->post('/search/title', [\Controllers\Book::class, 'search']);
 //○ par éditeur
-$router->get('/publishers/{id}/books', [\Controllers\BookVersion::class, 'findByPublisher']);
+$router->post('/publishers/{id}/books', [\Controllers\BookVersion::class, 'findByPublisher']);
 //○ (facultatif) par édition
-$router->get('/editions/{id}/books', [\Controllers\BookVersion::class, 'findByEdition']);
+$router->post('/editions/{id}/books', [\Controllers\BookVersion::class, 'findByEdition']);
 
 //Dans les résultats de la recherche on aimerait pouvoir voir en plus des attributs du livre, l’auteur, la maison d’édition, les éditions disponibles et la note moyenne donnée par les utilisateurs.
 $router->get('/books/{id}/infos', [\Controllers\Book::class, 'infos']);
