@@ -25,7 +25,7 @@ $router->get('/authors/{id}/books', [\Controllers\Author::class, 'books']);
 //○ par genre/tags
 $router->get('/tags/{id}/books', [\Controllers\Tag::class, 'books']);
 //○ par titre
-$router->post('/search/title', [\Controllers\Book::class, 'search']);
+$router->get('/search/title', [\Controllers\Book::class, 'search']);
 //○ par éditeur
 $router->get('/publishers/{id}/books', [\Controllers\BookVersion::class, 'findByPublisher']);
 //○ (facultatif) par édition
